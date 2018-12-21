@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Events</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+  </head>
+
+  <body>
+    <div id='WorkArea' class = 'clickable'>
+    <h5 class = 'clickable'>Hello Plunker!</h5> 
+    <hr/>
+    
+    <input type="button" class = 'clickable' value="Click Me"/> 
+    <p class = 'clickable'>This is a paragraph</p>
+    <p >
+      <span class = 'clickable'>Click here</span>
+    </p>  
+
+    </div>
+    <div id='Message'>
+    <h5>Message</h5>
+    <hr/>
+    
+    </div>
+  </body>
+  <script>
+    $(function()
+    {
+      var showEventMessage=function(options)
+      {
+        options=$.extend({
+          eventType:'CLICK',
+          eventTarget:this,
+          suffix: "<br/>"
+        },options);
+
+      var message = options.eventType+" : "+ 
+      (options.eventTarget.nodeName || 'unknown')+ options.suffix;
+      //console.log(message)
+      $('#Message').append(message);  
+      }
+
+      $('.clickable').click(function(){
+        showEventMessage.call(this,{suffix:"!<br/>"});
+      });
+
+     $('.clickable')
+        .click(function(event){
+          showEventMessage.call(this,{eventType: event.type});
+          event.stopImmediatePropagation();
+        })
+        .mousedown(function(event){
+          showEventMessage .call(this,{eventType: event.type});
+          event.stopPropagation();
+          event.stopImmediatePropagation();
+          event.preventDefault();
+          //return false;
+        })
+        .mousedown(function(event){
+          showEventMessage .call(this,{eventType: event.type,suffix:'#2! <br/>'});
+          event.stopPropagation();
+          event.preventDefault();
+          //return false;
+        })   
+        .dblclick(function(event){
+            showEventMessage.call(this,{eventType: event.type});
+        });   
+
+
+    });
+
+       
+  </script>
+  
+</html>   

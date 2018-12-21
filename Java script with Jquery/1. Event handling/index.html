@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Events</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+  </head>
+
+  <body>
+    <div id='WorkArea'>
+    <h5 class = 'clickable'>Hello Plunker!</h5> 
+    <hr/>
+    
+    <input type="button" class = 'clickable' value="Click Me"/>  
+    </div>
+    <div id='Message'>
+    <h5>Message</h5>
+    <hr/>
+    
+    </div>
+  </body>
+  <script>
+    $(function()
+    {
+      var showEventMessage=function(options)
+      {
+        options=$.extend({
+          eventType:'CLICK',
+          eventTarget:this,
+          suffix: "<br/>"
+        },options);
+
+      var message = options.eventType+" : "+ 
+      (options.eventTarget.nodeName || 'unknown')+ options.suffix;
+      //console.log(message)
+      $('#Message').append(message);  
+      }
+
+      $('.clickable').click(function(){
+        showEventMessage.call(this,{suffix:"!<br/>"});
+      });
+    });
+       
+  </script>
+  
+</html>

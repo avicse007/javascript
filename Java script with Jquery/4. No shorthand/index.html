@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Events</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
+  </head>
+
+  <body>
+    <div id='WorkArea' class = 'clickable'>
+    <h5 class = 'clickable'>Hello Plunker!</h5> 
+    <hr/>
+    
+    <input type="button" class = 'clickable' value="Click Me"/> 
+    <p class = 'clickable'>jQuery Event Handling methods
+    	<ul>
+    	<li>bind</li>
+    	<li>unbind</li>
+    	<li>live</li>
+    	<li>die</li>
+    	<li>delegate</li>
+    	<li>undelegate</li>
+    	<li>on</li>
+    	<li>off</li>
+    	<li>one</li>
+    </ul>
+    </p>
+    <p >
+      <span class = 'clickable'>Click here</span>
+    </p>  
+
+    </div>
+    <div id='Message'>
+    <h5>Message</h5>
+    <hr/>
+    
+    </div>
+  </body>
+  <script>
+    $(function()
+    {
+      var showEventMessage=function(options)
+      {
+        options=$.extend({
+          eventType:'CLICK',
+          eventTarget:this,
+          suffix: "<br/>"
+        },options);
+
+      var message = options.eventType+" : "+ 
+      (options.eventTarget.nodeName || 'unknown')+ options.suffix;
+      //console.log(message)
+      $('#Message').append(message);  
+      }
+     $('.clickable')
+       // .off('mousedown')
+        .on('click mousedown dblclick',function(event){
+          if(!event.isPropagationStopped() &&
+             !event.isImmediatePropagationStopped() &&
+             !!event.isDefaultPrevented())
+          {
+            showEventMessage.call(this,{eventType: event.type});
+            event.stopImmediatePropagation();
+            //if(event.type === 'mousedown')
+              //event.preventDefault();
+          }
+          showEventMessage.call(this,{eventType: event.type});
+            event.stopImmediatePropagation();
+        })
+      //.off('mousedown');   
+    });
+
+       
+  </script>
+  
+</html>   
